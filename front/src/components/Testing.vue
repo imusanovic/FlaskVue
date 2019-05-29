@@ -6,7 +6,7 @@
         <hr><br><br>
         <button type="button" class="btn btn-success btn-sm" v-b-modal.user-modal>Dodaj ljudova</button>
         <br><br>
-        <alert></alert>
+        <alert :message="message" v-if="showMessage"></alert>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -131,7 +131,9 @@ export default {
             grad: ''
         },
         mobitel: ''
-      }
+      },
+      message: '',
+      showMessage: false,
     };
   },
   components: {
@@ -151,6 +153,8 @@ export default {
         const endpoint = '//localhost:5000/users'
         axios.post(endpoint, payload).then(() => {
             this.sviLjudovi();
+            this.message = 'Ljudov je dodan! Bravo!';
+            this.showMessage = true;
         })
         .catch((error) => {
             console.log(error);

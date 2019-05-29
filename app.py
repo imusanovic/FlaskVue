@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import uuid
 
 
 # configuration
@@ -17,12 +18,14 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 # testing data
 users = [
     {
+        'id': uuid.uuid4().hex,
         'ime': 'Pero',
         'prezime': 'Peric',
         'adresa': {'ulica': 'Kruzna', 'broj': 7, 'grad': 'Rijeka'},
         'mobitel': '0981234567'
     },
     {
+        'id': uuid.uuid4().hex,
         'ime': 'Ivo',
         'prezime': 'Ivic',
         'adresa': {'ulica': 'Kvadratna', 'broj': 3, 'grad': 'Pula'},
@@ -39,6 +42,7 @@ def all_users():
         post_data = request.get_json()
         adresa = post_data.get('adresa')
         user = {
+            'id': uuid.uuid4(),
             'ime': post_data.get('ime'),
             'prezime': post_data.get('prezime'),
             'adresa': adresa,
